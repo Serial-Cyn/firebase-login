@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v1.2: Sign in and Sign out
+- Prepared integration for email sign in
+- Integrated Firebase Sign in and Sign out using Google Accounts
+
 ## v1.1: Import Firebase API - Nov. 13, 2025
 - Imported provided API to `environment.ts` and `environment.prod.ts`
 
