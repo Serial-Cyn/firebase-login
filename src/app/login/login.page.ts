@@ -25,8 +25,8 @@ import { addIcons } from 'ionicons';
 import { logoGoogle, logoFacebook } from 'ionicons/icons';
 
 import { Auth } from '@angular/fire/auth';
-import { GoogleAuthProvider } from 'firebase/auth';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { GoogleAuthProvider, FacebookAuthProvider } from 'firebase/auth';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { signInWithPopup, signOut } from 'firebase/auth';
 
 @Component({
@@ -57,7 +57,8 @@ import { signInWithPopup, signOut } from 'firebase/auth';
   ],
 })
 export class LoginPage implements OnInit {
-  provider: GoogleAuthProvider;
+  googleProvider: GoogleAuthProvider;
+  facebookProvider: FacebookAuthProvider;
 
   email: string = '';
   password: string = '';
@@ -65,22 +66,32 @@ export class LoginPage implements OnInit {
   constructor(private auth: Auth) {
     addIcons({ logoGoogle, logoFacebook });
 
-    this.provider = new GoogleAuthProvider();
+    this.googleProvider = new GoogleAuthProvider();
+    this.facebookProvider = new FacebookAuthProvider();
   }
 
   ngOnInit() {}
 
   async signInWithGoogle() {
     try {
-      const result = await signInWithPopup(this.auth, this.provider);
+      const result = await signInWithPopup(this.auth, this.googleProvider);
       console.log('User Info:', result.user);
     } catch (error) {
       console.error('Google Login Error:', error);
     }
   }
 
+  async signInWithFacebook() {
+    try {
+      const result = await signInWithPopup(this.auth, this.facebookProvider);
+      console.log('User Info:', result.user);
+    } catch (error) {
+      console.error('Facebook Login Error:', error);
+    }
+  }
+
   async signInWithEmail() {
-    const result = await createUserWithEmailAndPassword(
+    const result = await signInWithEmailAndPassword(
       this.auth,
       this.email,
       this.password
