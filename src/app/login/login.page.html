@@ -1,0 +1,91 @@
+<ion-content [fullscreen]="true">
+  <ion-grid>
+    <ion-row class="ion-">
+      <ion-col size="2" size-md="4"></ion-col>
+      <ion-col size="8" size-md="4" class="">
+        <!-- SIGN UP CARD -->
+        <ion-card style="min-height: 420px">
+          <ion-card-header>
+            <ion-card-title>SIGN UP</ion-card-title>
+            <ion-card-subtitle>One bit at a time.</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <!-- SIGN IN OPTIONS -->
+            <ion-grid>
+              <ion-row>
+                <ion-col size="12">
+                  <p class="ion-text-center">Sign up with</p>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="12">
+                  <!-- Google -->
+                  <ion-button
+                    expand="block"
+                    color="medium"
+                    fill="solid"
+                    shape="round"
+                    (click)="signInWithGoogle()"
+                  >
+                    <ion-icon slot="start" name="logo-google"></ion-icon>
+                    Google
+                  </ion-button>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <!-- Facebook -->
+                <ion-col size="12">
+                  <ion-button
+                    expand="block"
+                    color="medium"
+                    fill="solid"
+                    shape="round"
+                    (click)="signInWithFacebook()"
+                  >
+                    <ion-icon slot="start" name="logo-facebook"></ion-icon>
+                    Facebook
+                  </ion-button>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="12">
+                  <p class="ion-text-center">or, sign up with</p>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="12">
+                  <!-- Email -->
+                  <ion-input
+                    label="Email"
+                    labelPlacement="floating"
+                    type="email"
+                    placeholder="Enter your email"
+                    [clearInput]="true"
+                  ></ion-input>
+                  <ion-input
+                    label="Password"
+                    labelPlacement="floating"
+                    type="password"
+                    placeholder="Enter your password"
+                    (ionFocus)="onPasswordFocus()"
+                    (ionBlur)="onPasswordFocus()"
+                    ><ion-input-password-toggle
+                      slot="end"
+                      *ngIf="isPasswordFocused"
+                    ></ion-input-password-toggle
+                  ></ion-input>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="12">
+                  <ion-button expand="block" shape="round" (click)="signInWithEmail()">Sign up!</ion-button>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size="2" size-md="4"></ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
