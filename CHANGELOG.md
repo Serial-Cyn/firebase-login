@@ -1,6 +1,12 @@
 # CHANGELOG
 
-## v1.2: Sign in and Sign out
+## v1.3: Sign in options - Nov. 13, 2025
+- Added Google as one of the options, and made it functional as well
+- Added Facebook, but not functional
+- Added Email and Password, but not functional
+- This version made my brain hurt T^T
+
+## v1.2: Sign in and Sign out - Nov. 13, 2025
 - Prepared integration for email sign in
 - Integrated Firebase Sign in and Sign out using Google Accounts
 
