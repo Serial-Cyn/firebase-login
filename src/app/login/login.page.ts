@@ -25,7 +25,9 @@ import { addIcons } from 'ionicons';
 import { logoGoogle, logoFacebook } from 'ionicons/icons';
 
 import { Auth } from '@angular/fire/auth';
-import { GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
+import { GoogleAuthProvider } from 'firebase/auth';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { signInWithPopup, signOut } from 'firebase/auth';
 
 @Component({
   selector: 'app-login',
@@ -57,6 +59,9 @@ import { GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
 export class LoginPage implements OnInit {
   provider: GoogleAuthProvider;
 
+  email: string = '';
+  password: string = '';
+
   constructor(private auth: Auth) {
     addIcons({ logoGoogle, logoFacebook });
 
@@ -70,19 +75,24 @@ export class LoginPage implements OnInit {
       const result = await signInWithPopup(this.auth, this.provider);
       console.log('User Info:', result.user);
     } catch (error) {
-      console.error('Login Error:', error);
-    }
-  }
-
-  async signInWithFacebook() {
-    try {
-    } catch (error) {
-      console.error('Facebook Login Error:', error);
+      console.error('Google Login Error:', error);
     }
   }
 
   async signInWithEmail() {
-    // Implement email sign-in logic here
+    const result = await createUserWithEmailAndPassword(
+      this.auth,
+      this.email,
+      this.password
+    )
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log('User Info:', user);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+      });
   }
 
   async signOut() {
