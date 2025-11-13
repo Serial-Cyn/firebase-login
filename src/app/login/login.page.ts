@@ -24,6 +24,9 @@ import {
 import { addIcons } from 'ionicons';
 import { logoGoogle, logoFacebook } from 'ionicons/icons';
 
+import { Auth } from '@angular/fire/auth';
+import { GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -52,26 +55,43 @@ import { logoGoogle, logoFacebook } from 'ionicons/icons';
   ],
 })
 export class LoginPage implements OnInit {
-  constructor() {
+  provider: GoogleAuthProvider;
+
+  constructor(private auth: Auth) {
     addIcons({ logoGoogle, logoFacebook });
+
+    this.provider = new GoogleAuthProvider();
   }
 
   ngOnInit() {}
 
-  signInWithGoogle() {
-    // Implement Google sign-in logic here
+  async signInWithGoogle() {
+    try {
+      const result = await signInWithPopup(this.auth, this.provider);
+      console.log('User Info:', result.user);
+    } catch (error) {
+      console.error('Login Error:', error);
+    }
   }
 
-  signInWithFacebook() {
-    // Implement Facebook sign-in logic here
+  async signInWithFacebook() {
+    try {
+    } catch (error) {
+      console.error('Facebook Login Error:', error);
+    }
   }
 
-  signInWithEmail() {
+  async signInWithEmail() {
     // Implement email sign-in logic here
   }
 
-  signOut() {
-    // Implement sign-out logic here
+  async signOut() {
+    try {
+      await signOut(this.auth);
+      console.log('User signed out successfully.');
+    } catch (error) {
+      console.error('Logout Error:', error);
+    }
   }
 
   isPasswordFocused: boolean = false;
