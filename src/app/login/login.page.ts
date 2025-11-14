@@ -19,7 +19,6 @@ import {
   IonLabel,
   IonInput,
   IonInputPasswordToggle,
-  IonRouterLink,
 } from '@ionic/angular/standalone';
 
 import { addIcons } from 'ionicons';
@@ -29,6 +28,7 @@ import { Auth } from '@angular/fire/auth';
 import { GoogleAuthProvider, FacebookAuthProvider } from 'firebase/auth';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { signInWithPopup, signOut } from 'firebase/auth';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -64,7 +64,7 @@ export class LoginPage implements OnInit {
   email: string = '';
   password: string = '';
 
-  constructor(private auth: Auth) {
+  constructor(private auth: Auth, private router: Router) {
     addIcons({ logoGoogle, logoFacebook });
 
     this.googleProvider = new GoogleAuthProvider();
@@ -73,9 +73,14 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {}
 
+  redirectToHome() {
+    this.router.navigate(['/home']);
+  }
+
   async signInWithGoogle() {
     try {
       const result = await signInWithPopup(this.auth, this.googleProvider);
+      this.redirectToHome();
       console.log('User Info:', result.user);
     } catch (error) {
       console.error('Google Login Error:', error);
@@ -85,6 +90,7 @@ export class LoginPage implements OnInit {
   async signInWithFacebook() {
     try {
       const result = await signInWithPopup(this.auth, this.facebookProvider);
+      this.redirectToHome();
       console.log('User Info:', result.user);
     } catch (error) {
       console.error('Facebook Login Error:', error);
@@ -99,6 +105,7 @@ export class LoginPage implements OnInit {
     )
       .then((userCredential) => {
         const user = userCredential.user;
+        this.redirectToHome();
         console.log('User Info:', user);
       })
       .catch((error) => {
