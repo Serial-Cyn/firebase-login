@@ -19,6 +19,7 @@ import {
   IonLabel,
   IonInput,
   IonInputPasswordToggle,
+  IonRouterLink,
 } from '@ionic/angular/standalone';
 
 import { addIcons } from 'ionicons';
